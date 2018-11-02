@@ -51,6 +51,7 @@ int main()
       }
       else if (command == "Dequeue")
       {
+      cout << "poop" << endl;
         queue.Dequeue(item);
         outFile<< item  << " is dequeued. " << endl;
       }
