@@ -8,24 +8,24 @@ class PQType
 public:
   PQType(int);          // parameterized class constructor
   ~PQType();            // class destructor
-  
+
   void MakeEmpty();
   // Function: Initializes the queue to an empty state.
   // Post: Queue is empty.
-  
+
   bool IsEmpty() const;
   // Function: Determines whether the queue is empty.
   // Post: Function value = (queue is empty)
-  
+
   bool IsFull() const;
   // Function: Determines whether the queue is full.
   // Post: Function value = (queue is full)
-  
+
   void Enqueue(ItemType newItem);
   // Function: Adds newItem to the rear of the queue.
   // Post: if (the priority queue is full) exception FullPQ is thrown;
   //       else newItem is in the queue.
-  
+
   void Dequeue(ItemType& item);
   // Function: Removes element with highest priority from the queue
   // and returns it in item.
@@ -47,18 +47,53 @@ PQType<ItemType>::PQType(int max)
 }
 
 template<class ItemType>
+PQType<ItemType>::~PQType()
+{
+  delete [] items.elements;
+}
+
+template<class ItemType>
 void PQType<ItemType>::MakeEmpty()
 {
   length = 0;
 }
 
 template<class ItemType>
-PQType<ItemType>::~PQType()
+bool PQType<ItemType>::IsEmpty() const
 {
-  delete [] items.elements;
+    return (length == 0);
 }
 
-    /*
-       Your code goes here
-    */
+template<class ItemType>
+bool PQType<ItemType>::IsFull() const
+{
+    return (length == maxItems);
+}
 
+template<class ItemType>
+void PQType<ItemType>::Enqueue(ItemType newItem)
+{
+    if(length == maxItems)
+        throw FullPQ();
+    else
+    {
+        items.elements[length] = newItem;
+        length++;
+        items.ReheapUp(0, length - 1);
+    }
+}
+
+template<class ItemType>
+void PQType<ItemType>::Dequeue(ItemType& item)
+{
+    if(length == 0)
+        throw EmptyPQ();
+    else
+    {
+        item = items.elements[0];
+        items.elements[0] = items.elements[length - 1];
+        length--;
+        items.ReheapDown(0, length - 1);
+    }
+    cout << items.elements[length - 1];
+}

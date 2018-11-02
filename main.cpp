@@ -12,9 +12,9 @@ int main()
   ofstream outFile;      // file containing output
   string inFileName;     // input file external name
   string outFileName;    // output file external name
-  string outputLabel;     
+  string outputLabel;
   string command;        // operation to be executed
-  
+
   ItemType item;
   PQType<int> queue(5);
   int numCommands;
@@ -23,11 +23,13 @@ int main()
   // Prompt for file names, read file names, and prepare files
   cout << "Enter name of input command file; press return." << endl;
   cin  >> inFileName;
-  inFile.open(inFileName.c_str());
+  //inFile.open(inFileName.c_str());
+  inFile.open("PQ_Input_File.in");
 
   cout << "Enter name of output file; press return." << endl;
   cin  >> outFileName;
-  outFile.open(outFileName.c_str());
+//  outFile.open(outFileName.c_str());
+  outFile.open("PQ_Output_File.out");
 
   cout << "Enter name of test run; press return." << endl;
   cin  >> outputLabel;
@@ -38,49 +40,49 @@ int main()
 
   numCommands = 0;
   while (command != "Quit")
-  { 
-    try 
+  {
+    try
     {
       if (command == "Enqueue")
       {
-        inFile >> item; 
+        inFile >> item;
         queue.Enqueue(item);
         outFile << item << " is enqueued." << endl;
       }
       else if (command == "Dequeue")
       {
-        queue.Dequeue(item); 
+        queue.Dequeue(item);
         outFile<< item  << " is dequeued. " << endl;
-      } 
-      else if (command == "IsEmpty") 
+      }
+      else if (command == "IsEmpty")
         if (queue.IsEmpty())
           outFile << "Queue is empty." << endl;
-        else 
+        else
           outFile << "Queue is not empty." << endl;
-             
+
       else if (command == "IsFull")
         if (queue.IsFull())
           outFile << "Queue is full." << endl;
-        else outFile << "Queue is not full."  << endl; 
+        else outFile << "Queue is not full."  << endl;
       else if (command == "MakeEmpty")
-        queue.MakeEmpty();    
+        queue.MakeEmpty();
     }
     catch (FullPQ)
     {
       outFile << "FullQueue exception thrown." << endl;
     }
-    
+
     catch (EmptyPQ)
     {
       outFile << "EmtpyQueue exception thrown." << endl;
-    }    
+    }
     numCommands++;
-    cout <<  " Command number " << numCommands << " completed." 
+    cout <<  " Command number " << numCommands << " completed."
          << endl;
     inFile >> command;
- 
+
   };
- 
+
   cout << "Testing completed."  << endl;
   inFile.close();
   outFile.close();

@@ -1,0 +1,12 @@
+# depslib dependency file v1.0
+1541199293 source:/home/bread/Templates/PriorityQueue/main.cpp
+	<iostream>
+	<fstream>
+	"PQType.h"
+
+1541199631 /home/bread/Templates/PriorityQueue/PQType.h
+	"Heap.h"
+
+1541198805 /home/bread/Templates/PriorityQueue/Heap.h
+	<iostream>
+
