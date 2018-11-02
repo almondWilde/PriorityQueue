@@ -95,5 +95,4 @@ void PQType<ItemType>::Dequeue(ItemType& item)
         length--;
         items.ReheapDown(0, length - 1);
     }
-    cout << items.elements[length - 1];
 }
